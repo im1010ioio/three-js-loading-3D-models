@@ -17,7 +17,7 @@ function init(){
     camera.lookAt(scene.position)
     
     // 載入GLTF start ----
-    gltfLoader.load( '../gltf/scene.gltf', function ( dataUrl ) {
+    gltfLoader.load( 'gltf/scene.gltf', function ( dataUrl ) {
     // gltfLoader.load( '/gltf/scene.glb', function ( dataUrl ) {
         var object = dataUrl.scene;
         object.position.set(0, 0, 0);
