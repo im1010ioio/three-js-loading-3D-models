@@ -3,20 +3,24 @@ let renderer, scene, camera;
 const gltfLoader = new THREE.GLTFLoader()
 
 function init(){
-    scene = new THREE.Scene()
-    // scene.fog = new THREE.Fog(0x090b33,5,50)
+    // * 建立場景
+    scene = new THREE.Scene();
+    // scene.fog = new THREE.Fog(0x090b33,5,50); // 場景的霧氣
     
+    // * 建立渲染器
     renderer = new THREE.WebGLRenderer()
     renderer.setSize(window.innerWidth,window.innerHeight)
     renderer.shadowMap.enable=true
-    
+    // append 渲染到 body
     document.body.appendChild(renderer.domElement)
     
-    camera = new THREE.PerspectiveCamera(40,window.innerWidth/window.innerHeight,0.1,100)
+    // * 建立相機 -> 視角, 寬, 高, 最近的距離, 最遠的距離
+    camera = new THREE.PerspectiveCamera(40,window.innerWidth/window.innerHeight,0.1,100000)
     camera.position.set(0, 20, 30)
     camera.lookAt(scene.position)
     
-    // 載入GLTF start ----
+    // * 載入GLTF
+    // ---- 載入GLTF start ----
     gltfLoader.load( 'gltf/scene.gltf', function ( dataUrl ) {
     // gltfLoader.load( '/gltf/scene.glb', function ( dataUrl ) {
         let object = dataUrl.scene;
@@ -27,9 +31,10 @@ function init(){
     }, undefined, function ( error ) {
         console.error( error );
     } );
-    // 載入GLTF end ----
+    // ---- 載入GLTF end ----
 
-    // // ---- 畫一顆中子球 start ----
+    // * 繪製圖案: 原子球
+    // // ---- 畫一顆原子球 start ----
     // ballGroup = new THREE.Object3D()
     // scene.add(ballGroup)
     // function generateBall(r,color,name,x,y,z){
@@ -65,14 +70,12 @@ function init(){
     //     }
     //     dd=!dd
     // }
-    // // ---- 畫一顆中子球 end ----
+    // // ---- 畫一顆原子球 end ----
 
 
-
-
-
+    // * 添加光線
     // ---- 添加光線 start ----
-    let ambientLight = new THREE.AmbientLight("#333")
+    let ambientLight = new THREE.AmbientLight("#aaa")
     scene.add(ambientLight)
     
     let directionalLight = new THREE.DirectionalLight(0xffffff,0.5)
@@ -84,14 +87,22 @@ function init(){
     scene.add(spotLight)
     // ---- 添加光線 end ----
     
-    cameraControl = new THREE.OrbitControls(camera,renderer.domElement)
+    // * 控制相機 OrbitControls
+    cameraControl = new THREE.OrbitControls(camera,renderer.domElement);
+    cameraControl.enableZoom = true;      // 啟用縮放
+    // enableDamping 與 dampingFactor 效果可以理解為在拖移旋轉時的「滑鼠靈敏度」
+    cameraControl.enableDamping = true;   // 啟用阻尼效果
+    cameraControl.dampingFactor = 1;   // 阻尼系數
+    // cameraControl.autoRotate = true;      // 啟用自動旋轉
 
-}
-init()
+};
+init();
 
 function render(){
-    renderer.render(scene,camera)
-    cameraControl.update()
+    renderer.render(scene,camera);
+
+    // * 更新相機控制
+    cameraControl.update();
 
     // ---- 球自己轉
     // ballGroup.rotation.y+=0.002
