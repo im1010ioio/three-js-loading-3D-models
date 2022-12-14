@@ -1,5 +1,5 @@
-var renderer, scene, camera;
-// var ballGroup;
+let renderer, scene, camera;
+// let ballGroup;
 const gltfLoader = new THREE.GLTFLoader()
 
 function init(){
@@ -19,7 +19,7 @@ function init(){
     // 載入GLTF start ----
     gltfLoader.load( 'gltf/scene.gltf', function ( dataUrl ) {
     // gltfLoader.load( '/gltf/scene.glb', function ( dataUrl ) {
-        var object = dataUrl.scene;
+        let object = dataUrl.scene;
         object.position.set(0, 0, 0);
 
         scene.add( object );
@@ -34,11 +34,11 @@ function init(){
     // scene.add(ballGroup)
     // function generateBall(r,color,name,x,y,z){
     
-    //     var sphereGeometry = new THREE.SphereGeometry(r,32,32)
-    //     var sphereMaterial =new THREE.MeshLambertMaterial({
+    //     let sphereGeometry = new THREE.SphereGeometry(r,32,32)
+    //     let sphereMaterial =new THREE.MeshLambertMaterial({
     //         color: color
     //     })
-    //     var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial)
+    //     let sphere = new THREE.Mesh(sphereGeometry,sphereMaterial)
     //     sphere.name = name
     //     sphere.position.set(x || 0,y || 0,z || 0)
     //     ballGroup.add(sphere)
@@ -47,12 +47,12 @@ function init(){
     // // generateBall(5,"#f24","test")
     // // generateBall(5,"#24f","test",-5)
     // // generateBall(5,"#2f4","test",5)
-    // var radius = 2
-    // var stepdiv = 4
-    // var dd =true
-    // for(var angle1 = 0;angle1<Math.PI*2;angle1+=Math.PI/stepdiv){
+    // let radius = 2
+    // let stepdiv = 4
+    // let dd =true
+    // for(let angle1 = 0;angle1<Math.PI*2;angle1+=Math.PI/stepdiv){
         
-    //     for(var angle2 = 0;angle2<Math.PI*2;angle2+=Math.PI/stepdiv){
+    //     for(let angle2 = 0;angle2<Math.PI*2;angle2+=Math.PI/stepdiv){
     //         let layerRadius = Math.cos(angle1)*radius
     //         let ballColor = dd?"red":"#2e30d1"
         
@@ -72,13 +72,13 @@ function init(){
 
 
     // ---- 添加光線 start ----
-    var ambientLight = new THREE.AmbientLight("#333")
+    let ambientLight = new THREE.AmbientLight("#333")
     scene.add(ambientLight)
     
-    var directionalLight = new THREE.DirectionalLight(0xffffff,0.5)
+    let directionalLight = new THREE.DirectionalLight(0xffffff,0.5)
     scene.add(directionalLight)
     
-    var spotLight = new THREE.SpotLight({color: "#fff"})
+    let spotLight = new THREE.SpotLight({color: "#fff"})
     spotLight.position.set(-20,20,10)
     spotLight.CastShadow=true
     scene.add(spotLight)
